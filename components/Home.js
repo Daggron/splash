@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, View, ActivityIndicator, Dimensions, FlatList, Animated, TouchableWithoutFeedback, ScrollView, RefreshControl } from 'react-native';
+import { StyleSheet, Image, View, ActivityIndicator, Dimensions, FlatList, Animated, TouchableWithoutFeedback, ScrollView, RefreshControl, StatusBar } from 'react-native';
 import Axios from 'axios';
 
 export default function Home(props) {
@@ -35,22 +35,6 @@ export default function Home(props) {
   }
 
 
-  const handleScale = async () => {
-    if (isFocused){
-      Animated.timing(scale,{
-        toValue: 1,
-        duration: 1000
-      }).start();
-    }
-    else {
-      Animated.timing(scale,{
-        toValue: 0.9,
-        duration: 1000
-      }).start();  
-    }
-    isFocused = !isFocused;
-  }
-
   if(loading){
     return (
       <View style={styles.loading}>
@@ -62,30 +46,27 @@ export default function Home(props) {
   const {height, width} = Dimensions.get('window');
   return(
     <View style={{height, width}}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refresh} onRefresh={handleRefresh} />
-        }
-      >
+      <StatusBar hidden={true}/>
       <View style={styles.container}>
         <FlatList
           numColumns={2}
-          pagingEnabled
           showsVerticalScrollIndicator={false}
           data={wallpapers}
           renderItem={({item})=>{
             return(
               <TouchableWithoutFeedback onPress={()=>props.navigation.navigate('Wallpaper',{item: item})}>
-                <Animated.View style={[{height: height/3, width: width/2, transform: [{scale: scale}]}]}>
+                <View style={{height: height/3, width: width/2,}}>
                   <Image source={{uri: item.urls.regular}} style={{flex: 1, height: null, width: null}}/>
-                </Animated.View>
+                </View>
               </TouchableWithoutFeedback>
             )
           }}
           keyExtractor={item => item.id}
+          refreshControl={
+            <RefreshControl refreshing={refresh} onRefresh={handleRefresh} />
+          }
         />
       </View>
-      </ScrollView>
     </View>
   )
 }

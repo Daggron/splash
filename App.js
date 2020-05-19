@@ -1,8 +1,8 @@
 import React from 'react'
-import StackNavigator from './components/StackNavigator'
+import TabNavigator from './TopNavigator'
 
 export default function App() {
   return (
-   <StackNavigator />
+   <TabNavigator />
   )
 }
