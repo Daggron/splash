@@ -31,3 +31,7 @@ This is a wallpaper app which provides you the latest wallpaper for your mobile.
 
 - Axios (to make request to unspalsh api)
 
+
+If you have any idea for this app feel free to work on it. Changes are welcome
+
+Happy Hacking :zap:
