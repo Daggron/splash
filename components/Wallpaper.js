@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Dimensions, StyleSheet, Animated, } from 'react-native';
+import { View, Image, Dimensions, StyleSheet, Animated, Share } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
@@ -26,6 +26,18 @@ export default function Wallpaper(props) {
         }
         isfocused = !isfocused;
     }
+
+    
+    const handleSharing = async () => {
+        try {
+            await Share.share({
+                message: `Hey 🖐, Checkout this amazing wallpaper ${item.urls.full}`
+            })
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
     const handleSave = async () => {
        const {status} = await Permissions.getAsync(Permissions.CAMERA_ROLL);
 
@@ -65,7 +77,7 @@ export default function Wallpaper(props) {
                 </TouchableWithoutFeedback>
                 <View style={Style.buttonsWrapper}>
                     <Ionicons name="ios-save" size={40}  style={{padding: 15}} onPress={handleSave} />
-                    <Ionicons name="ios-share" size={40} style={{padding: 15}} />
+                    <Ionicons name="ios-share" size={40} style={{padding: 15}} onPress={handleSharing}/>
                 </View>
             </View>
         </ScrollView>
