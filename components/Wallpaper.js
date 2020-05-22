@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Dimensions, StyleSheet, Animated, Share } from 'react-native';
+import { View, Image, Dimensions, StyleSheet, Animated, Share, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
@@ -70,6 +70,9 @@ export default function Wallpaper(props) {
     return (
         <ScrollView>
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+                <View style={{position: 'absolute'}}>
+                    <ActivityIndicator size="large" color="red"/>
+                </View>
                 <TouchableWithoutFeedback onPress={handleFocus}>
                     <Animated.View style={{height: scale, width,}} >
                         <Image source={{uri: item?.urls?.regular}} style={{flex: 1, height: null, width: null,}} />
